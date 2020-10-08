@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script>
+   $(document).ready(function() {
+      //데이터 조회한 결과를 화면에 table태그로 보여주도록 하기
+      showAll();
+      
+      $('#save').on('click', function(event) {
+         event.preventDefault();
+         $.ajax({
+            url: $('#frm').attr('action'),
+            type: 'post',
+            data: $('#frm').serialize(),
+            success: function(a,b){
+               console.log(a,b);
+               alert("ok");
+            },
+            error: function(a,b){
+               console.log(a,b);
+            }
+         });
+         $('#showResult').empty();
+         showAll();
+      });
+   });
+   
+   function file_open(){
+      window.open("upload.jsp","upload","width=300 height=200 left=300 top=30");
+   }
+   
+   function showAll() {
+	   $.ajax({
+	         url: '../GetProductListJsonServlet', // 전체데이터를 조회해서 결과를 json파일로 만들어주는 서블릿(웹 페이지)
+	         dataType: 'json', 
+	         success: function(result) {
+	            //let data = JSON.parse(result);
+	            let data = result;
+	                  
+	            let fields = ['itemNo','item','price','content','image'];
+	            let table = $('<table />').attr({'id':'tbl', 'border':'1'});
+	            let tr = $('<tr />');   
+	            for(title of fields) {
+	                  tr.append($('<th />').html(title));
+	               };
+	            table.append(tr);
+	            $(data).each(function(idx, obj) {
+	               let tr = $('<tr />');
+	               for(field of fields){
+	                  if(field == 'itemNo'){
+	                     let atag = $('<a />').attr('href','item.jsp?itemNo='+obj[field]).html(obj[field]);
+	                     tr.append($('<td />').html(atag));
+	                  }//tr.append($('<td />').html($('<a/>').attr('href','item.jsp?itemNo='+obj.itemNo).html(obj[field])));
+	                  else {
+	                  tr.append($('<td />').html(obj[field]));
+	                  }
+	               }
+	               table.append(tr);
+	            });
+	            //console.log(result);            
+	            $('#showResult').append(table);
+	         },
+	         error: function(result) {
+	            console.log(result);
+	         }
+	      });
+   }
+</script>
+</head>
+
+<body>
+   <form action="../PostProductServlet" id="frm" method="post">
+      <table border="1">
+         <tr>
+            <td>item no</td>
+            <td colspan="2"><input type="text" name="itemNo"
+               value="bean_009"></td>
+         </tr>
+         <tr>
+            <td>item</td>
+            <td colspan="2"><input type="text" name="item" value="콜롬비아원두"></td>
+         </tr>
+         <tr>
+            <td>category</td>
+            <td colspan="2"><input type="text" name="category" value="bean"></td>
+         </tr>
+         <tr>
+            <td>price</td>
+            <td colspan="2"><input type="text" name="price" value="4300"></td>
+         </tr>
+         <tr>
+            <td>content</td>
+            <td colspan="2"><input type="text" name="content"
+               value="콜롬비아산 원두"></td>
+         </tr>
+         <tr>
+            <td>like it</td>
+            <td colspan="2"><input type="text" name="likeIt" value="4.5"></td>
+         </tr>
+         <tr>
+            <td>image</td>
+            <td colspan="2"><input type="text" name="image"><input
+               type="button" value="파일첨부" onclick="file_open()"></td>
+         </tr>
+
+         <tr align="center">
+            <td colspan="2">
+               <button id="save">save</button>
+               <button id="cancel">cancel</button>
+            </td>
+         </tr>
+
+      </table>
+
+   </form>
+   <div style="height: 20px;"></div>
+   <div id="showResult"></div>
+</body>
+</html>

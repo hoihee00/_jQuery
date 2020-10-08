@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery_plugin.html</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+    <style>
+        .gallery_wrap {
+            padding-left: 15%;
+            padding-right: 15%;
+            padding-top: 30px;
+        }
+
+        .slide_gallery img {
+            width: 400px;
+            height: 300px;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('.slide_gallery').bxSlider({
+                auto: true,
+                autoControls: true,
+                stopAutoOnClick: true,
+                pager: true,
+                captions: true,
+                slideWidth: 600
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="gallery_wrap">
+        <div class="slide_gallery">
+            <li>
+                <img src="../images/pic_1.jpg" alt='사진1' title="과테말라 안티구아"></img>
+            </li>
+            <li>
+                <img src="../images/pic_2.jpg" alt='사진2' title="과테말라 안티구아"></img>
+            </li>
+            <li>
+                <img src="../images/pic_3.jpg" alt='사진3' title="니카라구아"></img>
+            </li>
+            <li>
+                <img src="../images/pic_4.jpg" alt='사진4' title="브라질 산토스"></img>
+            </li>
+            <li>
+                <img src="../images/pic_5.jpg" alt='사진5' title="에티오피아 예가체프"></img>
+            </li>
+            <li>
+                <img src="../images/pic_6.jpg" alt='사진6' title="케냐 AA"></img>
+            </li>
+            <li>
+                <img src="../images/pic_7.jpg" alt='사진7' title="케냐 AA"></img>
+            </li>
+            <li>
+                <img src="../images/pic_8.jpg" alt='사진8' title="코스타리카 따라주"></img>
+            </li>
+            <li>
+                <img src="../images/pic_9.jpg" alt='사진9' title="에티오피아 예가체프"></img>
+            </li>
+        </div>
+    </div>
+</body>
+
+</html>
